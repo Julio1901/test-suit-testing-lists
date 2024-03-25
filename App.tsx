@@ -8,7 +8,8 @@
 import React from 'react';
 
 import {
-  SafeAreaView, Text,
+  Button,
+  SafeAreaView, Text, View,
 } from 'react-native';
 import { CustomList } from './componentes/customList/CustomList';
 
@@ -16,10 +17,30 @@ import { CustomList } from './componentes/customList/CustomList';
 
 function App(): React.JSX.Element {
 
+  const listData = [
+    {        
+        name: 'Julio',
+        age: 27
+    },
+    {        
+        name: 'Stark',
+        age: 42
+    },
+    {        
+        name: 'Samuel',
+        age: 32
+    },
+] 
+
+
   return (
     <SafeAreaView>
       <Text>Hello </Text>
-      <CustomList/>
+      <CustomList data={listData}/>
+      <View style={{flexDirection: 'row'}}>
+        <Button title='add element into list'/>
+        <Button title='remove element from list'/>
+      </View>
     </SafeAreaView>
   );
 }

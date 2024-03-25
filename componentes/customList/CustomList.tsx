@@ -2,27 +2,20 @@ import { FlatList, Text, View } from "react-native"
 import { styles } from "./styles"
 import { CustomListCardItem } from "../customListCardItem/CustomListCardItem"
 
-export const CustomList : React.FC = () => {
+export interface CustomListItem {
+    name: string,
+    age: number
+}
 
+interface ICustomListProps {
+    data: CustomListItem[]
+}
 
-    const listData = [
-        {        
-            name: 'Julio',
-            age: 27
-        },
-        {        
-            name: 'Stark',
-            age: 42
-        },
-        {        
-            name: 'Samuel',
-            age: 32
-        },
-] 
+export const CustomList : React.FC<ICustomListProps> = ({data}) => {
     return(
-        <View style={styles.mainContainer}>
+        <View style={styles.mainContainer} testID="custom-list-test-id">
             <Text>My custom list</Text>
-            <FlatList data={listData} renderItem={ e => <CustomListCardItem/>}/>
+            <FlatList data={data} renderItem={ e => <CustomListCardItem/>}/>
         </View>
     )
 }

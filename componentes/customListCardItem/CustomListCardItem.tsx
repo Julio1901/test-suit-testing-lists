@@ -3,7 +3,7 @@ import { styles } from "./styles"
 
 export const CustomListCardItem = () => {
     return(
-        <View style={styles.mainContainer}>
+        <View style={styles.mainContainer} testID="custom-list-card-item-test-id">
             <Text>This is a card</Text>
         </View>
     )
