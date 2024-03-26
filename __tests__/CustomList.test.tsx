@@ -25,5 +25,13 @@ describe('CustomList test suit', () =>{
         debug()
     })
 
+    //Exemple of how i can test the component style
+    it('Should render component with orange background', () => {
+        const {getByTestId, debug} = render(<CustomList data={listData}/>)
+        const component = getByTestId('custom-list-test-id')
+        expect(component).toHaveStyle({backgroundColor: '#84E9FF'})
+        debug()
+    })
+
 
 })
