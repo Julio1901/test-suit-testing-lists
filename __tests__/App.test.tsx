@@ -17,7 +17,6 @@ describe('Initial screen test suit', () => {
     getAllByTestId = renderResult.getAllByTestId;
     debug = renderResult.debug;
 
-    // Acessar os botões desejados
     addButton = getByTestId('initial-screen-add-button-test-id');
     removeButton = getByTestId('initial-screen-remove-button-test-id');
     card = getAllByTestId('custom-list-card-item-test-id')
