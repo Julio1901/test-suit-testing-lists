@@ -5,11 +5,25 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import '@testing-library/jest-native/extend-expect';
 import App from '../App';
-
-
+import { ReactTestInstance } from 'react-test-renderer';
 
 describe('Initial screen test suit', () => {
 
+  let getByTestId: any, getAllByTestId: any, debug: any, addButton: any, removeButton, card: any,  cards: any[] ;
+
+  beforeEach(() => {
+    const renderResult = render(<App />);
+    getByTestId = renderResult.getByTestId;
+    getAllByTestId = renderResult.getAllByTestId;
+    debug = renderResult.debug;
+
+    // Acessar os botões desejados
+    addButton = getByTestId('initial-screen-add-button-test-id');
+    removeButton = getByTestId('initial-screen-remove-button-test-id');
+    card = getAllByTestId('custom-list-card-item-test-id')
+    cards = getAllByTestId('custom-list-card-item-test-id')
+  });
+  
   it('Should render  buttons correctly', () => {
     const {getByTestId, debug} = render(<App/>)
     const addButton = getByTestId('initial-screen-add-button-test-id')
@@ -39,43 +53,28 @@ describe('Initial screen test suit', () => {
     debug()
   })
 
-
-
   it('Should render  list card correctly', async () => {
-    const {getAllByTestId, getByTestId, debug} = render(<App/>)
     await waitFor(() => {
-      const cards = getAllByTestId('custom-list-card-item-test-id');
-       const itemNames = cards.map(item => item.props.children[0].props.children);
-      
-       //  Example how to get text name using Text element with unique test ID 
-      // const itemNames = cards.map((card, index) => getByTestId(`custom-card-item-name-test-id-${index}`).props.children);
-      
+      const itemNames = cards.map(item => item.props.children[0].props.children);
       expect(itemNames).toEqual(['Julio', 'Stark', 'Samuel']);
     });
-
     debug()
   })
 
-
-
+  //Example how to use scenary get by beforeEach scope
   it('Should add new item to list when add button is pressed', async () => {
-    const {getAllByTestId, getByTestId, debug} = render(<App/>)
-    const addButton = getByTestId('initial-screen-add-button-test-id')
-
-    await waitFor(() => {
-      let cards = getAllByTestId('custom-list-card-item-test-id')
+    await waitFor(() => { 
       let itemNames = cards.map(item => item.props.children[0].props.children)
       expect(itemNames).toEqual(['Julio', 'Stark', 'Samuel'])
-
       fireEvent.press(addButton)
       cards = getAllByTestId('custom-list-card-item-test-id')
       itemNames = cards.map(item => item.props.children[0].props.children)
       expect(itemNames).toEqual(['Julio', 'Stark', 'Samuel', 'New person added'])
     })
-
     debug()
   })
 
+  //Example hot to create scenary to test into test case
   it('Should remove last item from list when remove button is pressed', async() => {
     const {getAllByTestId, getByTestId, debug} = render(<App/>)
     const removeButton = getByTestId('initial-screen-remove-button-test-id')
@@ -92,4 +91,19 @@ describe('Initial screen test suit', () => {
     })
     debug()
   })
+
+
+  it('Should render component with correctly age increased', async () => {
+    const {getByTestId, getByText, debug} = render(<App/>)
+    const addButton = getByTestId('initial-screen-add-button-test-id')
+    fireEvent.press(addButton)
+    fireEvent.press(addButton)
+    fireEvent.press(addButton)
+    fireEvent.press(addButton)
+    const cardComponent = getByText('33')
+    expect(cardComponent).toBeDefined()
+    expect(cardComponent).toBeVisible()
+    debug()
+})
+
 })

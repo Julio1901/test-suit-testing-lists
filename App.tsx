@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import {
   Button,
@@ -48,9 +48,13 @@ const data = [
   },
 ] 
 
+
+let personAgeTest = useRef(30)
+
 const handleWithAddButtonPressed = () => {
-  const dataUpdated = [...listData , {name: 'New person added', age: 30}]
+  const dataUpdated = [...listData , {name: 'New person added', age: personAgeTest.current}]
   setListData (dataUpdated)
+  personAgeTest.current = personAgeTest.current + 1
 }
 
 const handleWithRemoveButtonPressed = () => {
