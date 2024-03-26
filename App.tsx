@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Button,
@@ -17,7 +17,7 @@ import { CustomList } from './componentes/customList/CustomList';
 
 function App(): React.JSX.Element {
 
-  const listData = [
+  const [listData, setListData] = useState([
     {        
         name: 'Julio',
         age: 27
@@ -30,16 +30,41 @@ function App(): React.JSX.Element {
         name: 'Samuel',
         age: 32
     },
+] )
+
+
+const data = [
+  {        
+      name: 'Julio',
+      age: 27
+  },
+  {        
+      name: 'Stark',
+      age: 42
+  },
+  {        
+      name: 'Samuel',
+      age: 32
+  },
 ] 
 
+const handleWithAddButtonPressed = () => {
+  const dataUpdated = [...listData , {name: 'New person added', age: 30}]
+  setListData (dataUpdated)
+}
+
+const handleWithRemoveButtonPressed = () => {
+  const newListData = listData.slice(0, -1);
+  setListData(newListData);
+}
 
   return (
-    <SafeAreaView>
+    <SafeAreaView testID='initial-screen-test-id'>
       <Text>Hello </Text>
       <CustomList data={listData}/>
       <View style={{flexDirection: 'row'}}>
-        <Button title='add element into list'/>
-        <Button title='remove element from list'/>
+        <Button title='add element into list' onPress={handleWithAddButtonPressed} testID='initial-screen-add-button-test-id'/>
+        <Button title='remove element from list' onPress={handleWithRemoveButtonPressed} testID='initial-screen-remove-button-test-id'/>
       </View>
     </SafeAreaView>
   );
